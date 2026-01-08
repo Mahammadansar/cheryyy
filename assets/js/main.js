@@ -196,6 +196,8 @@
                 // Show success message
                 const submitBtn = this.querySelector('button[type="submit"]');
                 const originalText = submitBtn.innerHTML;
+                const adminEmail = this.querySelector('input[name="admin_email"]')?.value || 'office@cherrypickers-rentals.com';
+                
                 submitBtn.innerHTML = 'Sending...';
                 submitBtn.disabled = true;
 
@@ -203,6 +205,9 @@
                 setTimeout(() => {
                     submitBtn.innerHTML = '✓ Sent Successfully!';
                     submitBtn.style.background = '#10b981';
+                    
+                    // Show notification about where email is sent
+                    console.log(`Form submitted! Email will be sent to: ${adminEmail}`);
                     
                     // Reset form after 3 seconds
                     setTimeout(() => {
@@ -214,9 +219,18 @@
                 }, 1500);
 
                 // In production, you would send the data to a server:
-                // fetch('your-endpoint', {
+                // The form data will be sent to: office@cherrypickers-rentals.com
+                // You can use a service like Formspree, EmailJS, or your own backend:
+                // 
+                // Example with EmailJS or Formspree:
+                // fetch('https://formspree.io/f/YOUR_FORM_ID', {
                 //     method: 'POST',
-                //     body: formData
+                //     headers: { 'Content-Type': 'application/json' },
+                //     body: JSON.stringify({
+                //         to: adminEmail,
+                //         subject: this.querySelector('input[name="form_subject"]').value,
+                //         ...data
+                //     })
                 // })
                 // .then(response => response.json())
                 // .then(data => {
